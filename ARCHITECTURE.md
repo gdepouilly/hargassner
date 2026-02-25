@@ -1,6 +1,6 @@
 # Hargassner Home Assistant Integration — Architecture Reference
 
-> Generated: 2026-02-25 | Version: 0.1.0
+> Generated: 2026-02-25 | Version: 0.1.1
 
 ---
 
@@ -72,11 +72,10 @@ DOMAIN = "hargassner"
 Authentication payload sent:
 ```json
 {
-  "grant_type": "password",
+  "email": "<email>",
+  "password": "<password>",
   "client_id": "1",
-  "client_secret": "...",
-  "username": "<email>",
-  "password": "<password>"
+  "client_secret": "..."
 }
 ```
 
@@ -100,7 +99,9 @@ Widgets **without** a `number` field use the widget type as-is. Widgets **with**
 **Token lifecycle:** access_token lives only in `coordinator._access_token` (RAM). refresh_token is persisted to config entry but currently unused — re-login is used on expiry instead.
 
 ### `config_flow.py`
-Single step (`async_step_user`) collecting:
+Two flows are implemented:
+
+**Initial setup (`async_step_user`)** collects:
 - `email` (str)
 - `password` (str)
 - `installation_id` (int)
@@ -111,22 +112,27 @@ Validation sequence:
 3. `async_set_unique_id(installation_id)` → duplicate → abort `already_configured`
 4. Success → create entry with `{email, password, installation_id, refresh_token}`
 
+**Re-authentication (`async_step_reauth` → `async_step_reauth_confirm`)** triggered by `ConfigEntryAuthFailed`:
+- Prompts for `email` (pre-filled from existing entry) and `password`
+- Calls `api.login()` only — no `get_widgets` call
+- On success: calls `async_update_reload_and_abort()` to update `email`, `password`, `refresh_token` in the existing entry and reload it
+
 ### `__init__.py`
 `async_setup_entry()`:
-1. Creates `aiohttp.ClientSession`
+1. Gets shared `aiohttp.ClientSession` via `async_get_clientsession(hass)`
 2. Creates `HargassnerApiClient`
 3. Creates `HargassnerCoordinator`
 4. Calls `async_config_entry_first_refresh()` (first data fetch; raises `ConfigEntryNotReady` if unreachable)
-5. Stores coordinator at `hass.data[DOMAIN][entry.entry_id]`
+5. Stores coordinator at `entry.runtime_data`
 6. Forwards setup to `["sensor"]` platform
 
-`async_unload_entry()`: unloads sensor platform, removes from `hass.data`.
+`async_unload_entry()`: unloads sensor platform (no manual cleanup needed — `runtime_data` is managed by HA).
 
 ### `sensor.py`
 | Symbol | Purpose |
 |---|---|
 | `HargassnerSensorEntityDescription` | Frozen dataclass extending `SensorEntityDescription`; adds `widget` and `value_key` fields |
-| `SENSOR_DESCRIPTIONS` | Tuple of 10 sensor descriptors (see table below) |
+| `SENSOR_DESCRIPTIONS` | Tuple of 9 sensor descriptors (see table below) |
 | `HargassnerSensorEntity` | `CoordinatorEntity` + `SensorEntity`; reads from `coordinator.data[widget][value_key]` |
 
 `native_value` lookup path:
@@ -144,18 +150,17 @@ Device info is read from `coordinator.data["HEATER"]`:
 
 ## 4. Defined Sensors
 
-| `key` | `widget` | `value_key` | Unit | Device Class |
-|---|---|---|---|---|
-| `outdoor_temperature` | `HEATER` | `outdoor_temperature` | °C | temperature |
-| `heater_temperature_current` | `HEATER` | `heater_temperature_current` | °C | temperature |
-| `heater_temperature_target` | `HEATER` | `heater_temperature_target` | °C | temperature |
-| `smoke_temperature` | `HEATER` | `smoke_temperature` | °C | temperature |
-| `heater_state` | `HEATER` | `state` | — | — |
-| `room_temperature_current` | `HEATING_CIRCUIT_FLOOR_1` | `room_temperature_current` | °C | temperature |
-| `room_temperature_target` | `HEATING_CIRCUIT_FLOOR_1` | `room_temperature_target` | °C | temperature |
-| `flow_temperature_current` | `HEATING_CIRCUIT_FLOOR_1` | `flow_temperature_current` | °C | temperature |
-| `flow_temperature_target` | `HEATING_CIRCUIT_FLOOR_1` | `flow_temperature_target` | °C | temperature |
-| `buffer_charge` | `BUFFER` | `buffer_charge` | % | — |
+| `key` | `widget` | `value_key` | Unit | Device Class | State Class |
+|---|---|---|---|---|---|
+| `outdoor_temperature` | `HEATER` | `outdoor_temperature` | °C | temperature | measurement |
+| `heater_temperature_current` | `HEATER` | `heater_temperature_current` | °C | temperature | measurement |
+| `heater_temperature_target` | `HEATER` | `heater_temperature_target` | °C | temperature | measurement |
+| `smoke_temperature` | `HEATER` | `smoke_temperature` | °C | temperature | measurement |
+| `heater_state` | `HEATER` | `state` | — | — | — |
+| `room_temperature_current` | `HEATING_CIRCUIT_FLOOR_1` | `room_temperature_current` | °C | temperature | measurement |
+| `flow_temperature_current` | `HEATING_CIRCUIT_FLOOR_1` | `flow_temperature_current` | °C | temperature | measurement |
+| `flow_temperature_target` | `HEATING_CIRCUIT_FLOOR_1` | `flow_temperature_target` | °C | temperature | measurement |
+| `buffer_charge` | `BUFFER` | `buffer_charge` | % | — | measurement |
 
 Unique ID format: `{installation_id}_{key}` (e.g. `53745_outdoor_temperature`)
 
@@ -246,8 +251,8 @@ async_setup_entry()
   → HargassnerApiClient created
   → HargassnerCoordinator created
   → first_refresh() → _authenticate() + _async_update_data()
-  → coordinator stored in hass.data[DOMAIN][entry_id]
-  → 10 × HargassnerSensorEntity created, each holding a ref to coordinator
+  → coordinator stored in entry.runtime_data
+  → 9 × HargassnerSensorEntity created, each holding a ref to coordinator
 
 ──────────────────────────────────────────────────────────────────
 PERIODIC UPDATE (every 300 s)
@@ -302,18 +307,19 @@ Access in code: `entry.data["email"]`, `entry.data[CONF_INSTALLATION_ID]`, etc.
 
 ---
 
-## 9. hass.data Structure
+## 9. Coordinator Storage
+
+The integration uses the modern `entry.runtime_data` pattern (not `hass.data`):
 
 ```python
-hass.data = {
-    "hargassner": {
-        "<entry_id>": HargassnerCoordinator,
-        # one per installed Hargassner installation
-    }
-}
+# __init__.py — setup
+entry.runtime_data = coordinator  # type: HargassnerCoordinator
+
+# sensor.py — reading it back
+coordinator: HargassnerCoordinator = config_entry.runtime_data
 ```
 
-Sensor entities access it via `coordinator` property inherited from `CoordinatorEntity`.
+Sensor entities then access the coordinator via the `coordinator` property inherited from `CoordinatorEntity`.
 
 ---
 
