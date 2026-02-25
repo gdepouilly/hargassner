@@ -15,7 +15,7 @@ from custom_components.hargassner.const import (
 from custom_components.hargassner.coordinator import HargassnerCoordinator
 
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
-from homeassistant.config_entries import ConfigEntry
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 # Canned API responses used across tests.
 MOCK_TOKEN_DATA = {
@@ -81,6 +81,12 @@ MOCK_CONFIG_DATA = {
 }
 
 
+@pytest.fixture(autouse=True)
+def auto_enable_custom_integrations(enable_custom_integrations):
+    """Enable custom integrations for all tests in this package."""
+    return
+
+
 @pytest.fixture
 def mock_hargassner_api():
     """Return a mock HargassnerApiClient with successful canned responses."""
@@ -92,12 +98,12 @@ def mock_hargassner_api():
 
 @pytest.fixture
 def mock_config_entry():
-    """Return a mock ConfigEntry with test credentials."""
-    entry = MagicMock(spec=ConfigEntry)
-    entry.entry_id = "test_entry_id"
-    entry.domain = DOMAIN
-    entry.data = MOCK_CONFIG_DATA
-    return entry
+    """Return a MockConfigEntry with test credentials."""
+    return MockConfigEntry(
+        domain=DOMAIN,
+        entry_id="test_entry_id",
+        data=MOCK_CONFIG_DATA,
+    )
 
 
 @pytest.fixture
