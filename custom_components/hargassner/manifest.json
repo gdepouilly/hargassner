@@ -1,10 +1,12 @@
 {
   "domain": "hargassner",
   "name": "Hargassner",
-  "version": "0.1.0",
+  "version": "0.1.0b1",
   "integration_type": "hub",
   "config_flow": true,
   "iot_class": "cloud_polling",
-  "codeowners": [],
+  "documentation": "https://github.com/gdepouilly/hargassner",
+  "issue_tracker": "https://github.com/gdepouilly/hargassner/issues",
+  "codeowners": ["@gdepouilly"],
   "requirements": []
 }

@@ -19,7 +19,7 @@ Exposes temperatures, buffer state, and heating circuit data as Home Assistant s
 ### Via HACS (recommended)
 
 1. Open HACS in Home Assistant → **Integrations** → three-dot menu → **Custom repositories**
-2. Add `https://github.com/your-org/hargassner-ha` as category **Integration**
+2. Add `https://github.com/gdepouilly/hargassner` as category **Integration**
 3. Search for **Hargassner** and click **Download**
 4. Restart Home Assistant
 
