@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Hargassner",
+        "description": "Enter your Hargassner web account credentials and installation ID.",
+        "data": {
+          "email": "Email address",
+          "password": "Password",
+          "installation_id": "Installation ID"
+        },
+        "data_description": {
+          "email": "Your Hargassner web portal email address",
+          "password": "Your Hargassner web portal password",
+          "installation_id": "Numeric ID found in the URL when logged in at web.hargassner.at: .../installations/{id}/..."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password",
+      "cannot_connect": "Cannot connect to Hargassner servers"
+    },
+    "abort": {
+      "already_configured": "Installation already configured"
+    }
+  }
+}

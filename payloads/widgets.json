@@ -1,0 +1,172 @@
+{
+  "data": [
+    {
+      "widget": "HEATER",
+      "values": {
+        "name": "Depouilly",
+        "device_type": "Nano.2(.3) 15",
+        "state": "STATE_OFF",
+        "smoke_temperature": 57.4,
+        "heater_temperature_target": null,
+        "heater_temperature_current": 52.1,
+        "heater_exhaust_guard": false,
+        "outdoor_temperature": 10.2,
+        "outdoor_temperature_average": 10.7,
+        "efficiency": 0,
+        "program": "PROGRAM_AUTOMATIC",
+        "fuel_stock": 0
+      },
+      "parameters": {
+        "fuel_stock": {
+          "resource": "\/installations\/53745\/widgets\/heater\/parameters\/fuel-stock",
+          "value": 0,
+          "min": 0,
+          "max": 32000,
+          "step": 1,
+          "unit": ""
+        },
+        "fuel_stock_type": 1
+      }
+    },
+    {
+      "widget": "BUFFER",
+      "values": {
+        "state": "STATE_ON",
+        "buffer_charge": 45,
+        "capacity": 300,
+        "buffer_temperature_top": 65.9,
+        "buffer_temperature_center": 32.4,
+        "buffer_temperature_bottom": 25.8,
+        "pump_active": false,
+        "force_charging_active": false,
+        "max_requirement": 24
+      },
+      "parameters": {
+        "name": {
+          "resource": "\/installations\/53745\/widgets\/buffer\/default\/parameters\/name",
+          "value": "",
+          "regex": "^[0-9A-Za-z \\-]*$"
+        }
+      },
+      "actions": {
+        "force_charging": {
+          "resource": "\/installations\/53745\/widgets\/buffer\/default\/actions\/force-charging"
+        }
+      }
+    },
+    {
+      "widget": "HEATING_CIRCUIT_FLOOR",
+      "number": "1",
+      "values": {
+        "name": "PLANCHER",
+        "state": "STATE_REDUCTION",
+        "flow_temperature_target": 24,
+        "flow_temperature_current": 24.6,
+        "room_temperature_target": 19.3,
+        "room_temperature_current": 19.7,
+        "outdoor_temperature": 10.2,
+        "outdoor_temperature_average": 10.7,
+        "pump_active": true,
+        "active": true
+      },
+      "parameters": {
+        "mode": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/mode",
+          "value": "MODE_AUTOMATIC",
+          "options": [
+            "MODE_OFF",
+            "MODE_AUTOMATIC",
+            "MODE_HEATING",
+            "MODE_BRIDGE_REDUCTION",
+            "MODE_REDUCTION",
+            "MODE_BRIDGE_HEATING"
+          ]
+        },
+        "holiday_mode": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/holiday-mode",
+          "items": [],
+          "step": "PT15M"
+        },
+        "room_temperature_heating": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/room-temperature-heating",
+          "value": 20.5,
+          "min": 14,
+          "max": 26,
+          "step": 0.5,
+          "unit": "\u00b0C"
+        },
+        "room_temperature_reduction": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/room-temperature-reduction",
+          "value": 19.5,
+          "min": 8,
+          "max": 24,
+          "step": 0.5,
+          "unit": "\u00b0C"
+        },
+        "pool_heating": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/bathroom-heating",
+          "value": "POOL_HEATING_OFF",
+          "options": [
+            "POOL_HEATING_OFF",
+            "POOL_HEATING_ON",
+            "POOL_HEATING_AUTOMATIC"
+          ]
+        },
+        "name": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/name",
+          "value": "PLANCHER",
+          "regex": "^[0-9A-Za-z \\+\\-]*$"
+        },
+        "deactivation_limit_heating": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/all\/parameters\/deactivation-limit-heating",
+          "value": 16,
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "\u00b0C"
+        },
+        "deactivation_limit_reduction_day": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/all\/parameters\/deactivation-limit-reduction-day",
+          "value": 13,
+          "min": -40,
+          "max": 50,
+          "step": 1,
+          "unit": "\u00b0C"
+        },
+        "deactivation_limit_reduction_night": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/all\/parameters\/deactivation-limit-reduction-night",
+          "value": 10,
+          "min": -40,
+          "max": 50,
+          "step": 1,
+          "unit": "\u00b0C"
+        },
+        "steepness_floor": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/steepness-floor",
+          "value": 0.6,
+          "min": 0.2,
+          "max": 3.5,
+          "step": 0.05,
+          "unit": ""
+        },
+        "automatic_times_weekly": {
+          "resource": "\/installations\/53745\/widgets\/heating-circuits\/1\/parameters\/automatic-times-weekly",
+          "items": [
+            {
+              "days": ["SU", "MO", "TU", "WE", "TH", "FR", "SA"],
+              "times": ["T01:00PT19H"]
+            },
+            { "days": [], "times": ["T05:00PT17H"] }
+          ],
+          "step": "PT15M"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "refresh": 300,
+    "current_timestamp": "2026-02-25T20:42:12+01:00",
+    "online_state": true,
+    "no_channels": false
+  }
+}
