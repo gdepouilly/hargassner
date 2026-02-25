@@ -14,6 +14,14 @@
           "password": "Your Hargassner web portal password",
           "installation_id": "Numeric ID found in the URL when logged in at web.hargassner.at: .../installations/{id}/..."
         }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Hargassner",
+        "description": "Your Hargassner credentials are no longer valid. Please re-enter them.",
+        "data": {
+          "email": "Email address",
+          "password": "Password"
+        }
       }
     },
     "error": {
