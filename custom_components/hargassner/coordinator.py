@@ -62,6 +62,8 @@ class HargassnerCoordinator(DataUpdateCoordinator[HargassnerData]):
         self.api = api
         self.installation_id: int = config_entry.data[CONF_INSTALLATION_ID]
         self.installation: dict[str, Any] = {}
+        # Registry id of the heater device, parent of buffer/circuit devices.
+        self.heater_device_id: str | None = None
 
     async def _async_setup(self) -> None:
         """Load installation metadata once, for device info."""
@@ -151,7 +153,7 @@ class HargassnerCoordinator(DataUpdateCoordinator[HargassnerData]):
             name=custom_name or _default_device_name(widget),
             manufacturer="Hargassner",
             model=widget.get("widget", "").replace("_", " ").title(),
-            via_device=self.heater_device_identifier,
+            via_device_id=self.heater_device_id,
             configuration_url=configuration_url,
         )
 

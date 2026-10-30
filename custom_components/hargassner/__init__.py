@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import HargassnerApiClient
@@ -24,6 +25,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: HargassnerConfigEntry) -
     # Raises ConfigEntryNotReady (from UpdateFailed) or starts reauth
     # (from ConfigEntryAuthFailed) — both handled by Home Assistant.
     await coordinator.async_config_entry_first_refresh()
+
+    # Register the heater first: buffer/circuit devices reference it by id.
+    heater = dr.async_get(hass).async_get_or_create(
+        config_entry_id=entry.entry_id, **coordinator.device_info(None)
+    )
+    coordinator.heater_device_id = heater.id
 
     entry.runtime_data = coordinator
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

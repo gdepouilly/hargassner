@@ -64,11 +64,13 @@ async def test_devices(
     device_registry: dr.DeviceRegistry,
 ) -> None:
     """Heater device plus buffer and circuit sub-devices."""
-    heater = device_registry.async_get_device(identifiers={("hargassner", "12345")})
+    heater = device_registry.async_get_device_by_identifier(
+        ("hargassner", "12345"), init_integration.entry_id
+    )
     assert heater.model == "Nano.2(.3) 15"
     assert heater.sw_version == "v14"
-    circuit = device_registry.async_get_device(
-        identifiers={("hargassner", "12345_HEATING_CIRCUIT_FLOOR_1")}
+    circuit = device_registry.async_get_device_by_identifier(
+        ("hargassner", "12345_HEATING_CIRCUIT_FLOOR_1"), init_integration.entry_id
     )
     assert circuit.name == "PLANCHER"
     assert circuit.via_device_id == heater.id
@@ -182,3 +184,18 @@ async def test_unload(hass: HomeAssistant, init_integration: MockConfigEntry) ->
     """The entry unloads cleanly."""
     assert await hass.config_entries.async_unload(init_integration.entry_id)
     assert init_integration.state is ConfigEntryState.NOT_LOADED
+
+
+async def test_entities_stay_available_after_refresh(
+    hass: HomeAssistant, init_integration: MockConfigEntry
+) -> None:
+    """A normal poll keeps buffer and circuit entities available."""
+    await init_integration.runtime_data.async_refresh()
+    await hass.async_block_till_done()
+    for entity_id in (
+        "sensor.buffer_bottom_temperature",
+        "sensor.plancher_room_temperature",
+        "binary_sensor.plancher_pump",
+        MODE_SELECT,
+    ):
+        assert hass.states.get(entity_id).state not in ("unavailable", "unknown")

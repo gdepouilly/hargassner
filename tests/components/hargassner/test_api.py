@@ -75,7 +75,7 @@ async def test_expired_token_uses_refresh_token(
         [(HTTPStatus.UNAUTHORIZED, {}), (HTTPStatus.OK, {"data": [], "meta": {}})]
     )
 
-    def widgets(method, url, data):
+    async def widgets(method, url, data):
         status, body = next(responses)
         return AiohttpClientMockResponse(method, url, status=status, json=body)
 
@@ -101,7 +101,7 @@ async def test_failed_refresh_falls_back_to_login(
         [(HTTPStatus.UNAUTHORIZED, {}), (HTTPStatus.OK, {"data": [], "meta": {}})]
     )
 
-    def widgets(method, url, data):
+    async def widgets(method, url, data):
         status, body = next(responses)
         return AiohttpClientMockResponse(method, url, status=status, json=body)
 
