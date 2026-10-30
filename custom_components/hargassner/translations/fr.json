@@ -1,0 +1,197 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hargassner",
+        "description": "Connectez-vous avec votre compte web.hargassner.at.",
+        "data": {
+          "email": "E-mail",
+          "password": "Mot de passe"
+        }
+      },
+      "installation": {
+        "title": "Installation",
+        "description": "Choisissez l'installation à ajouter.",
+        "data": {
+          "installation_id": "Installation"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Hargassner",
+        "description": "Vos identifiants Hargassner ne sont plus valides. Veuillez vous reconnecter.",
+        "data": {
+          "email": "E-mail",
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "E-mail ou mot de passe invalide",
+      "cannot_connect": "Impossible de joindre le portail Hargassner",
+      "no_installations": "Aucune installation trouvée sur ce compte",
+      "installation_not_found": "Ce compte n'a plus accès à l'installation configurée"
+    },
+    "abort": {
+      "already_configured": "Cette installation est déjà configurée",
+      "reauth_successful": "Réauthentification réussie"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "heater_state": {
+        "name": "État",
+        "state": {
+          "off": "Arrêt",
+          "ignition": "Allumage",
+          "ignition_wait": "Attendre allumage",
+          "efficiency_fire": "Combustion",
+          "throttle_efficiency_fire": "Puissance réduite",
+          "burn_out": "Extinction",
+          "embers_keeping": "Veille",
+          "residual_heating": "Refroidissement",
+          "overheating": "Surchauffe",
+          "deashing": "Décendrage",
+          "filling": "Remplissage",
+          "overheat_protection": "Surchauffe (STB)",
+          "manual": "Mode manuel",
+          "door_open": "Porte ouverte",
+          "door_closed": "Porte fermée",
+          "block_protection": "Anti-blocage pompe",
+          "ash_drawer_open": "Cendrier ouvert",
+          "burn_assistant": "Assistant de combustion",
+          "backup_mode_logs": "Problème amenée de bois déchiqueté"
+        }
+      },
+      "heater_program": {
+        "name": "Programme",
+        "state": {
+          "automatic": "Auto",
+          "boiler": "Ballon",
+          "chimney_sweeper": "Ramoneur",
+          "manual": "Manuel",
+          "off": "Arrêt",
+          "pellets_disabled": "Granulés arrêt",
+          "stop_firing": "Arrêt combustion"
+        }
+      },
+      "heater_temperature_current": {
+        "name": "Température chaudière"
+      },
+      "heater_temperature_target": {
+        "name": "Consigne chaudière"
+      },
+      "smoke_temperature": {
+        "name": "Température fumées"
+      },
+      "outdoor_temperature": {
+        "name": "Température extérieure"
+      },
+      "outdoor_temperature_average": {
+        "name": "Température extérieure moyenne"
+      },
+      "efficiency": {
+        "name": "Puissance"
+      },
+      "fuel_stock": {
+        "name": "Stock combustible"
+      },
+      "buffer_state": {
+        "name": "État",
+        "state": {
+          "charging": "Chargement en cours",
+          "ignore_request": "Marche forcée",
+          "manual": "Mode manuel",
+          "off": "Arrêt",
+          "on": "Marche",
+          "residual_heating": "Refroidissement"
+        }
+      },
+      "buffer_charge": {
+        "name": "Charge"
+      },
+      "buffer_temperature_top": {
+        "name": "Température haut"
+      },
+      "buffer_temperature_center": {
+        "name": "Température milieu"
+      },
+      "buffer_temperature_bottom": {
+        "name": "Température bas"
+      },
+      "max_requirement": {
+        "name": "Besoin maximal"
+      },
+      "capacity": {
+        "name": "Capacité"
+      },
+      "circuit_state": {
+        "name": "État",
+        "state": {
+          "off": "Arrêt",
+          "heating": "Confort",
+          "cooling": "Refroidissement",
+          "reduction": "Réduit",
+          "reduction_transition": "Rampe de réduit",
+          "daily_nightly_deactivation": "Remise en route",
+          "summer_deactivation": "Mode congés",
+          "freeze_protection": "Protection contre le gel",
+          "screed_heating": "Chauffage plancher",
+          "manual": "Mode manuel",
+          "residual_heating": "Refroidissement",
+          "solar_heating": "Chauffage solaire",
+          "boiler_charging": "Chargement du ballon"
+        }
+      },
+      "flow_temperature_current": {
+        "name": "Température départ"
+      },
+      "flow_temperature_target": {
+        "name": "Consigne départ"
+      },
+      "room_temperature_current": {
+        "name": "Température ambiante"
+      },
+      "room_temperature_target": {
+        "name": "Consigne ambiante"
+      },
+      "active_errors": {
+        "name": "Erreurs actives"
+      },
+      "active_warnings": {
+        "name": "Avertissements actifs"
+      }
+    },
+    "binary_sensor": {
+      "pump_active": {
+        "name": "Pompe"
+      },
+      "circuit_active": {
+        "name": "Actif"
+      },
+      "heater_exhaust_guard": {
+        "name": "Surveillance fumées"
+      },
+      "online": {
+        "name": "Connexion au portail"
+      }
+    },
+    "select": {
+      "circuit_mode": {
+        "name": "Mode",
+        "state": {
+          "off": "Arrêt",
+          "automatic": "Auto",
+          "heating": "Confort",
+          "bridge_reduction": "1x Confort",
+          "reduction": "Réduit",
+          "bridge_heating": "1x Réduit"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "set_mode_failed": {
+      "message": "Impossible de changer le mode : {error}"
+    }
+  }
+}

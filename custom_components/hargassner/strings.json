@@ -1,0 +1,197 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hargassner",
+        "description": "Sign in with your web.hargassner.at account.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      },
+      "installation": {
+        "title": "Installation",
+        "description": "Select the installation to add.",
+        "data": {
+          "installation_id": "Installation"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Hargassner",
+        "description": "Your Hargassner credentials are no longer valid. Please sign in again.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password",
+      "cannot_connect": "Cannot connect to the Hargassner portal",
+      "no_installations": "No installation found on this account",
+      "installation_not_found": "This account no longer has access to the configured installation"
+    },
+    "abort": {
+      "already_configured": "This installation is already configured",
+      "reauth_successful": "Re-authentication was successful"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "heater_state": {
+        "name": "State",
+        "state": {
+          "off": "Off",
+          "ignition": "Ignition",
+          "ignition_wait": "Awaiting ignition",
+          "efficiency_fire": "Full combustion",
+          "throttle_efficiency_fire": "Part load",
+          "burn_out": "Burn out",
+          "embers_keeping": "Slumber mode",
+          "residual_heating": "Residual heating",
+          "overheating": "Overheating",
+          "deashing": "Deashing",
+          "filling": "Filling",
+          "overheat_protection": "STB - overheat protection",
+          "manual": "Manual",
+          "door_open": "Door open",
+          "door_closed": "Door closed",
+          "block_protection": "Blockage protection",
+          "ash_drawer_open": "Ash drawer open",
+          "burn_assistant": "Combustion assistant",
+          "backup_mode_logs": "Wood log emergency operation"
+        }
+      },
+      "heater_program": {
+        "name": "Program",
+        "state": {
+          "automatic": "Auto",
+          "boiler": "Hot water tank",
+          "chimney_sweeper": "Chimney sweeper",
+          "manual": "Manual",
+          "off": "Off",
+          "pellets_disabled": "Pellets off",
+          "stop_firing": "Stop firing"
+        }
+      },
+      "heater_temperature_current": {
+        "name": "Boiler temperature"
+      },
+      "heater_temperature_target": {
+        "name": "Boiler temperature target"
+      },
+      "smoke_temperature": {
+        "name": "Flue gas temperature"
+      },
+      "outdoor_temperature": {
+        "name": "Outdoor temperature"
+      },
+      "outdoor_temperature_average": {
+        "name": "Average outdoor temperature"
+      },
+      "efficiency": {
+        "name": "Output"
+      },
+      "fuel_stock": {
+        "name": "Fuel stock"
+      },
+      "buffer_state": {
+        "name": "State",
+        "state": {
+          "charging": "Charging",
+          "ignore_request": "Chimney sweep",
+          "manual": "Manual",
+          "off": "Off",
+          "on": "On",
+          "residual_heating": "Residual heating"
+        }
+      },
+      "buffer_charge": {
+        "name": "Charge"
+      },
+      "buffer_temperature_top": {
+        "name": "Top temperature"
+      },
+      "buffer_temperature_center": {
+        "name": "Middle temperature"
+      },
+      "buffer_temperature_bottom": {
+        "name": "Bottom temperature"
+      },
+      "max_requirement": {
+        "name": "Maximum requirement"
+      },
+      "capacity": {
+        "name": "Capacity"
+      },
+      "circuit_state": {
+        "name": "State",
+        "state": {
+          "off": "Off",
+          "heating": "Comfort",
+          "cooling": "Cooling",
+          "reduction": "Reduced",
+          "reduction_transition": "Reduction ramp",
+          "daily_nightly_deactivation": "Day/night switch-off",
+          "summer_deactivation": "Summer switch-off",
+          "freeze_protection": "Frost protection",
+          "screed_heating": "Screed heating",
+          "manual": "Manual",
+          "residual_heating": "Residual heating",
+          "solar_heating": "Solar heating",
+          "boiler_charging": "Hot water tank loading"
+        }
+      },
+      "flow_temperature_current": {
+        "name": "Flow temperature"
+      },
+      "flow_temperature_target": {
+        "name": "Flow temperature target"
+      },
+      "room_temperature_current": {
+        "name": "Room temperature"
+      },
+      "room_temperature_target": {
+        "name": "Room temperature target"
+      },
+      "active_errors": {
+        "name": "Active errors"
+      },
+      "active_warnings": {
+        "name": "Active warnings"
+      }
+    },
+    "binary_sensor": {
+      "pump_active": {
+        "name": "Pump"
+      },
+      "circuit_active": {
+        "name": "Active"
+      },
+      "heater_exhaust_guard": {
+        "name": "Exhaust guard"
+      },
+      "online": {
+        "name": "Portal connection"
+      }
+    },
+    "select": {
+      "circuit_mode": {
+        "name": "Mode",
+        "state": {
+          "off": "Off",
+          "automatic": "Auto",
+          "heating": "Comfort",
+          "bridge_reduction": "1x Comfort",
+          "reduction": "Reduced",
+          "bridge_heating": "1x Reduced"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "set_mode_failed": {
+      "message": "Could not change the mode: {error}"
+    }
+  }
+}

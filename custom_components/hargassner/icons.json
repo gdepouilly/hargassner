@@ -1,0 +1,60 @@
+{
+  "entity": {
+    "sensor": {
+      "heater_state": {
+        "default": "mdi:fire"
+      },
+      "heater_program": {
+        "default": "mdi:cog"
+      },
+      "efficiency": {
+        "default": "mdi:gauge"
+      },
+      "fuel_stock": {
+        "default": "mdi:silo"
+      },
+      "buffer_state": {
+        "default": "mdi:storage-tank"
+      },
+      "buffer_charge": {
+        "default": "mdi:storage-tank-outline"
+      },
+      "circuit_state": {
+        "default": "mdi:heating-coil"
+      },
+      "active_errors": {
+        "default": "mdi:alert-circle"
+      },
+      "active_warnings": {
+        "default": "mdi:alert"
+      }
+    },
+    "binary_sensor": {
+      "pump_active": {
+        "default": "mdi:pump",
+        "state": {
+          "off": "mdi:pump-off"
+        }
+      },
+      "circuit_active": {
+        "default": "mdi:heating-coil"
+      },
+      "heater_exhaust_guard": {
+        "default": "mdi:smoke"
+      }
+    },
+    "select": {
+      "circuit_mode": {
+        "default": "mdi:radiator",
+        "state": {
+          "off": "mdi:power",
+          "automatic": "mdi:clock-outline",
+          "heating": "mdi:white-balance-sunny",
+          "bridge_reduction": "mdi:weather-sunny",
+          "reduction": "mdi:weather-night",
+          "bridge_heating": "mdi:weather-night-partly-cloudy"
+        }
+      }
+    }
+  }
+}

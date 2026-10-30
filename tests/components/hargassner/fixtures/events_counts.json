@@ -1,0 +1,16 @@
+{
+  "data": {
+    "TYPE_ERROR": {
+      "active": 0,
+      "history": 10
+    },
+    "TYPE_WARNING": {
+      "active": 0,
+      "history": 15
+    },
+    "TYPE_EVENT": {
+      "active": 0,
+      "history": 0
+    }
+  }
+}

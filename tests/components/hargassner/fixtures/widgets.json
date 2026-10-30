@@ -1,0 +1,120 @@
+{
+  "data": [
+    {
+      "widget": "HEATER",
+      "values": {
+        "name": "Home",
+        "device_type": "Nano.2(.3) 15",
+        "state": "STATE_EFFICIENCY_FIRE",
+        "smoke_temperature": 156.9,
+        "heater_temperature_target": 70,
+        "heater_temperature_current": 68.6,
+        "heater_exhaust_guard": false,
+        "outdoor_temperature": 11.4,
+        "outdoor_temperature_average": 10.4,
+        "efficiency": 96,
+        "program": "PROGRAM_AUTOMATIC",
+        "fuel_stock": 488
+      },
+      "parameters": {
+        "fuel_stock": {
+          "resource": "/installations/12345/widgets/heater/parameters/fuel-stock",
+          "value": 488,
+          "min": 0,
+          "max": 32000,
+          "step": 1,
+          "unit": ""
+        },
+        "fuel_stock_type": 1
+      }
+    },
+    {
+      "widget": "BUFFER",
+      "values": {
+        "state": "STATE_CHARGING",
+        "buffer_charge": 23,
+        "capacity": 300,
+        "buffer_temperature_top": 38,
+        "buffer_temperature_center": 26.9,
+        "buffer_temperature_bottom": 26.7,
+        "pump_active": true,
+        "max_requirement": 32
+      },
+      "parameters": {
+        "name": {
+          "resource": "/installations/12345/widgets/buffer/default/parameters/name",
+          "value": "",
+          "regex": "^[0-9A-Za-z \\-]*$"
+        }
+      }
+    },
+    {
+      "widget": "HEATING_CIRCUIT_FLOOR",
+      "number": "1",
+      "values": {
+        "name": "PLANCHER",
+        "state": "STATE_HEATING",
+        "flow_temperature_target": 32,
+        "flow_temperature_current": 33.1,
+        "room_temperature_target": 23.9,
+        "room_temperature_current": 17.1,
+        "outdoor_temperature": 11.4,
+        "outdoor_temperature_average": 10.4,
+        "pump_active": true,
+        "active": true
+      },
+      "parameters": {
+        "mode": {
+          "resource": "/installations/12345/widgets/heating-circuits/1/parameters/mode",
+          "value": "MODE_HEATING",
+          "options": [
+            "MODE_OFF",
+            "MODE_AUTOMATIC",
+            "MODE_HEATING",
+            "MODE_BRIDGE_REDUCTION",
+            "MODE_REDUCTION",
+            "MODE_BRIDGE_HEATING"
+          ]
+        },
+        "name": {
+          "resource": "/installations/12345/widgets/heating-circuits/1/parameters/name",
+          "value": "PLANCHER",
+          "regex": "^[0-9A-Za-z \\+\\-]*$"
+        },
+        "automatic_times_weekly": {
+          "resource": "/installations/12345/widgets/heating-circuits/1/parameters/automatic-times-weekly",
+          "items": [
+            {
+              "days": [
+                "SU",
+                "MO",
+                "TU",
+                "WE",
+                "TH",
+                "FR",
+                "SA"
+              ],
+              "times": [
+                "T01:00PT19H"
+              ]
+            },
+            {
+              "days": [],
+              "times": [
+                "T05:00PT17H"
+              ]
+            }
+          ],
+          "step": "PT15M",
+          "limit": 2
+        }
+      }
+    }
+  ],
+  "meta": {
+    "refresh": 300,
+    "current_timestamp": "2026-10-30T14:45:44+01:00",
+    "online_state": true,
+    "no_channels": false
+  }
+}

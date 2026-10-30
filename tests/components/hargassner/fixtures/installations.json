@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": 12345,
+      "slug": "home-12345",
+      "name": "Home",
+      "devices": [
+        {
+          "id": 1,
+          "type": "Nano.2(.3) 15",
+          "series": "HAINZL_TOUCH_1",
+          "online_state": true,
+          "software": {
+            "version_product": "v14"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 1,
+      "count": 1,
+      "per_page": 36,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {}
+    }
+  }
+}
